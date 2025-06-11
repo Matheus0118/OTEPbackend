@@ -1,0 +1,1 @@
+from .chamado import Chamado
