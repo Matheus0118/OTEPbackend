@@ -21,8 +21,8 @@ init_app(app)
 with app.app_context():
     db.create_all()
 
-    app.register_blueprint(acesso_routes)
-    app.register_blueprint(chamado_bp)
+app.register_blueprint(acesso_routes)
+app.register_blueprint(chamado_bp)
     
 
 

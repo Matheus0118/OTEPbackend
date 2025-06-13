@@ -14,10 +14,12 @@ def login():
 
     user = Usuario.query.filter_by(usuario=usuario).first()
     if user and user.verificar_senha(senha):
-        access_token = create_access_token(identity=user.id, additional_claims={"admin": user.admin})
+        access_token = create_access_token(identity=str(user.id), additional_claims={"admin": user.admin})
         return jsonify({"success": True, 
                         "message": "Login realizado com sucesso.", 
-                        "token": access_token}), 200
+                        "token": access_token,
+                        "is_admin": user.admin
+                        }), 200
     return jsonify({"success": False, "message": "Usuário ou senha inválidos."}), 401
 
 def admin_required(fn):
@@ -37,4 +39,4 @@ def register():
     novo_usuario.set_senha(data['senha'])
     db.session.add(novo_usuario)
     db.session.commit()
-    return jsonify({"sucess": True, "message": "Usuário criado com sucesso."})
+    return jsonify({"success": True, "message": "Usuário criado com sucesso."})
