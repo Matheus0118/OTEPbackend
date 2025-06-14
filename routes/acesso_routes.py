@@ -35,7 +35,10 @@ def admin_required(fn):
 @acesso_routes.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    novo_usuario = Usuario(usuario=data["usuario"])
+    novo_usuario = Usuario(
+        usuario=data["usuario"],
+        admin=data.get("admin", False)
+    )
     novo_usuario.set_senha(data['senha'])
     db.session.add(novo_usuario)
     db.session.commit()
