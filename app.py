@@ -5,6 +5,8 @@ from routes.chamado_routes import chamado_bp
 from routes.acesso_routes import acesso_routes
 from flask_jwt_extended import JWTManager
 
+from models.chamado import Chamado
+from models.tags import Tag
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {

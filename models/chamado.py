@@ -1,4 +1,5 @@
 from database import db
+from models.tags import chamado_tags, Tag
 
 class Chamado (db.Model):
     id= db.Column(db.Integer, primary_key=True)
@@ -10,10 +11,16 @@ class Chamado (db.Model):
 
     usuario_id = db.Column(db.Integer, db.ForeignKey('acesso.id'), nullable=False)
 
+    tags = db.relationship(
+        'Tag',
+        secondary=chamado_tags,
+        back_populates='chamados'
+    )
+
     usuario = db.relationship('Usuario', back_populates='chamados')
 
-    def to_dict(self):
-        return {
+    def to_dict(self, include_tags=True):
+        data = {
             "id": self.id,
             "problema": self.problema,
             "nome": self.nome,
@@ -23,4 +30,8 @@ class Chamado (db.Model):
             "usuario_id": self.usuario_id
         }
     
+        if include_tags and hasattr(self, "tags"):
+            data["tags"] = [tag.nome for tag in self.tags]
+        
+        return data
     
