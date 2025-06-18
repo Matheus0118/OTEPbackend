@@ -7,6 +7,7 @@ from flask_jwt_extended import JWTManager
 
 from models.chamado import Chamado
 from models.tags import Tag
+from models.acesso import Usuario
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {
