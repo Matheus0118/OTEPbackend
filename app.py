@@ -11,7 +11,7 @@ from models.acesso import Usuario
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {
-      "origins": ["http://localhost:8081"],
+      "origins": ["*"],
       "methods": ["GET", "POST", "PUT", "DELETE"],
       "allow_headers": ["Content-Type", "Authorization"]
 }})
@@ -30,4 +30,4 @@ app.register_blueprint(chamado_bp)
 
 
 if __name__ == '__main__':
-        app.run(debug=True)
+        app.run(debug=True, host='0.0.0.0', port=5000)
